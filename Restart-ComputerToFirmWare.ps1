@@ -19,7 +19,6 @@ function Restart-ComputerToFirmWare {
 
         .NOTES
         - This function only works on UEFI devices. It checks if Windows is installed on UEFI mode before executing the restart command.
-        - Make sure to run the function with administrative privileges.
     #>
     [CmdletBinding()]
     param (
