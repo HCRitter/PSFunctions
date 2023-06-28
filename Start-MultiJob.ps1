@@ -15,8 +15,10 @@ function Start-MultiJob {
         Specifies an array of characters used for the spinning cursor animation. The default value is a set of characters: "|", "/", "-", and "\".
 
         .EXAMPLE
-        
         PS> Start-MultiJob -Jobs $Jobs
+
+        .OUTPUTS
+        Returns the Output of each job with name as a PSCustomObject
 
         .NOTES
 
@@ -113,5 +115,11 @@ function Start-MultiJob {
     end {
         $host.UI.RawUI.CursorPosition = @{ X = 0; Y = $CursorPosition }
         [System.Console]::CursorVisible = $true
+        foreach($JobItem in $JobList){
+            [PSCustomObject]@{
+                Task = $JobItem.Job.Name 
+                Output = $JobItem.Job.ChildJobs.Output
+            }
+        }
     }
 }
