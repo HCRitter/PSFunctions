@@ -43,17 +43,17 @@ function Invoke-ModuleExampleAnalyzer {
         return 
     }
 
-    $msGraphModule = Get-Module -Name $ModuleName
+    $TargetModule = Get-Module -Name $ModuleName
 
     # Collect function names and initialize the hashtable
     $FunctionAliases = @{}
-    $Functions = Get-Command -Module $msGraphModule -commandtype Function
+    $Functions = Get-Command -Module $TargetModule -commandtype Function
     foreach($Function in $Functions.Name){
         $FunctionAliases["$($Function)"] = @($Function)
     }
 
     # Populate the hashtable with aliases
-    $Aliases = Get-Command -Module $msGraphModule -commandtype Alias
+    $Aliases = Get-Command -Module $TargetModule -commandtype Alias
     foreach($alias in $aliases){
         $FunctionAliases["$($alias.ReferencedCommand)"] += $alias.DisplayName
     }
